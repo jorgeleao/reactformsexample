@@ -1,7 +1,33 @@
 #root {
-  max-width: 1280px;
+  width:100%;
+  height:100vh;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 0;
   text-align: center;
+  background-color: rgb(18, 18, 66);
 }
 
+.frame{
+  width:600px;
+  height:300px;
+  border:2px solid white;
+  border-radius:5px;
+  margin-top: 150px;
+  margin-right: auto;
+  margin-left: auto;
+  background-color:cornflowerblue ;
+}
+
+.input1_style{
+  width:300px;
+  font-size: 1.1em;
+  font-weight: bold;
+  margin-top: 100px;
+}
+
+.button1_style{
+  background-color: yellow;
+  color:black;
+  border:2px solid white;
+  border-radius:5px;
+}
