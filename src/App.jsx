@@ -10,17 +10,16 @@ function App() {
   useEffect(() => {
 console.log("=== old simulServer: "+simulServer)    
 setField1(simulServer)
-/*
+
     axios.get('http://localhost:8080/value')
       .then(response => {
         setSimulServer(response.data);
-console.log("=== simulServer: "+simulServer)    
         setField1(response.data)
       })
       .catch(error => {
         console.error("=== useEffect axios error: "+error);
       });
-*/      
+      
   }, []);
 
   const handle_Input1_Change = value => {setField1(value)}
