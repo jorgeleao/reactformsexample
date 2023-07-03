@@ -8,9 +8,6 @@ function App() {
   const [field1,setField1] = useState("")
 
   useEffect(() => {
-console.log("=== old simulServer: "+simulServer)    
-setField1(simulServer)
-
     axios.get('http://localhost:8080/value')
       .then(response => {
         setSimulServer(response.data);
@@ -24,7 +21,6 @@ setField1(simulServer)
 
   const handle_Input1_Change = value => {setField1(value)}
 
-  //=== WORKING!!! DONT TOUCH!!!
   const handle_button1_click = (e) => {
             console.log('=== Clicked button_1: '+field1)
 

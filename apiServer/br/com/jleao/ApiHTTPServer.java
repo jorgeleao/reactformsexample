@@ -61,7 +61,7 @@ public class ApiHTTPServer {
                 exchange.getResponseHeaders().add("Access-Control-Allow-Headers", "Content-Type,Authorization");
                 exchange.getResponseHeaders().add("Accept","application/json, text/plain, */*");   // The server tells it allows localhost:3000 !!
                 exchange.sendResponseHeaders(200, responseText.getBytes().length);
-System.out.println("=== responseText: "+responseText);                
+System.out.println("=== GET  responseText: "+responseText);                
                 OutputStream output = exchange.getResponseBody();
                 output.write(responseText.getBytes());
                 output.flush();
@@ -134,6 +134,7 @@ System.out.println("=== responseText: "+responseText);
                 exchange.getResponseHeaders().set("contentType", "application/json; charset=UTF-8, text/plain, */*");
 
                 exchange.sendResponseHeaders(200, responseText.getBytes().length);
+System.out.println("=== POST responseText: "+responseText);                
                 OutputStream output = exchange.getResponseBody();
                 output.write(responseText.getBytes());
                 output.flush();
