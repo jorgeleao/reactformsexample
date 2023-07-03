@@ -2,6 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  */
 
+//Compile: javac -cp ./ br/com/jleao/ApiHTTPServer.java
+//Run:     java -cp ./ br.com.jleao.ApiHTTPServer
+
 package br.com.jleao;
 
 import com.sun.net.httpserver.HttpServer;
@@ -26,6 +29,7 @@ public class ApiHTTPServer {
         server.createContext("/value", (exchange -> {
         //-------------------------------------------------------------------            
         //  curl.exe -X GET   http://localhost:8080/value
+
             if ("GET".equals(exchange.getRequestMethod())) {
                 String responseText = "";
                 try{
@@ -35,10 +39,29 @@ public class ApiHTTPServer {
                 }catch(Exception e){
                     e.printStackTrace();
                 }
-                
+/*                
+            final String json = "{\"weight\":\"23400\"}";
+            final String origin = exchange.getRequestHeaders().getFirst("Origin");
+            if(origin != null){
+                System.out.println("=== origin: "+origin);
+                exchange.getResponseHeaders().add("Access-Control-Allow-Origin", origin);
+                exchange.getResponseHeaders().add("Access-Control-Allow-Headers","origin, content-type, accept, authorization");
+                exchange.getResponseHeaders().add("Access-Control-Allow-Credentials", "true");
+                exchange.getResponseHeaders().add("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD");
+                exchange.getResponseHeaders().set("contentType", "application/json; charset=UTF-8, text/plain, *//*");
+                exchange.sendResponseHeaders(200, json.getBytes().length);
+                OutputStream output = exchange.getResponseBody();
+                output.write(responseText.getBytes());
+                output.flush();
+            }
+*/            
                 exchange.getResponseHeaders().add("Access-Control-Allow-Origin", "http://localhost:5173");   // The server tells it allows localhost:3000 !!
+                exchange.getResponseHeaders().add("Access-Control-Allow-Credentials", "true");
+                exchange.getResponseHeaders().add("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+                exchange.getResponseHeaders().add("Access-Control-Allow-Headers", "Content-Type,Authorization");
+                exchange.getResponseHeaders().add("Accept","application/json, text/plain, */*");   // The server tells it allows localhost:3000 !!
                 exchange.sendResponseHeaders(200, responseText.getBytes().length);
-                
+System.out.println("=== responseText: "+responseText);                
                 OutputStream output = exchange.getResponseBody();
                 output.write(responseText.getBytes());
                 output.flush();
@@ -46,15 +69,15 @@ public class ApiHTTPServer {
                 exchange.sendResponseHeaders(405, -1);// 405 Method Not Allowed
             }
             exchange.close();
-//        }));
+        }));
         //-------------------------------------------------------------------            
-        //  curl.exe -X POST  -d "{'value': 300}" http://localhost:8080/value
+        //  
+/*        
             if ("POST".equals(exchange.getRequestMethod())) {
                 
                 InputStream input = exchange.getRequestBody();
                 byte[] inputBytes = new byte[200];
                 int n = input.read(inputBytes);
-System.out.println("=== n="+n);                
                 String localvalueJSON = (new String(inputBytes,StandardCharsets.UTF_8)).substring(0,n);
                 try{
                     mutex.acquire();
@@ -65,7 +88,13 @@ System.out.println("=== n="+n);
                 }
                 
                 String responseText = localvalueJSON;
+
+                exchange.getResponseHeaders().add("Access-Control-Allow-Origin", "http://localhost:5173");   // The server tells it allows localhost:3000 !!
+                exchange.getResponseHeaders().add("Access-Control-Allow-Headers","origin, content-type, accept, authorization");
+                exchange.getResponseHeaders().add("Access-Control-Allow-Credentials", "true");
+                exchange.getResponseHeaders().add("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD");
                 exchange.sendResponseHeaders(200, responseText.getBytes().length);
+
                 OutputStream output = exchange.getResponseBody();
                 output.write(responseText.getBytes());
                 output.flush();
@@ -74,12 +103,13 @@ System.out.println("=== n="+n);
                 exchange.sendResponseHeaders(405, -1);// 405 Method Not Allowed
             }
             exchange.close();
+            
         }));
         //-------------------------------------------------------------------            
-
+*/
         
 //====================================================================
-/*
+
         server.createContext("/postvalue", (exchange -> {
         //  curl.exe -X POST  -d "{'value': 300}" http://localhost:8080/postvalue
             if ("POST".equals(exchange.getRequestMethod())) {
@@ -95,8 +125,14 @@ System.out.println("=== n="+n);
                 }catch(Exception e){
                     e.printStackTrace();
                 }
-                
                 String responseText = localvalueJSON;
+
+                exchange.getResponseHeaders().add("Access-Control-Allow-Origin", "http://localhost:5173");   // The server tells it allows localhost:3000 !!
+                exchange.getResponseHeaders().add("Access-Control-Allow-Headers","origin, content-type, accept, authorization");
+                exchange.getResponseHeaders().add("Access-Control-Allow-Credentials", "true");
+                exchange.getResponseHeaders().add("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD");
+                exchange.getResponseHeaders().set("contentType", "application/json; charset=UTF-8, text/plain, */*");
+
                 exchange.sendResponseHeaders(200, responseText.getBytes().length);
                 OutputStream output = exchange.getResponseBody();
                 output.write(responseText.getBytes());
@@ -107,7 +143,7 @@ System.out.println("=== n="+n);
             }
             exchange.close();
         }));
-*/        
+        
 //====================================================================        
         server.setExecutor(null); // creates a default executor
         server.start();

@@ -7,45 +7,37 @@ function App() {
 
   const [field1,setField1] = useState("")
 
-  const handle_Input1_Change = value => {setField1(value)}
-  const handle_button1_click = (e) => {
-            console.log('=== Clicked button_1: '+field1)
-
-            axios.post('http://localhost:4000/updateFile')
-            .then(response => {
-              setSimulServer(response.data);
-            })
-            .catch(error => {
-              console.error("=== button axios error: "+error);
-            });
-      
-
-
-
-//            setSimulServer(field1)
-          } //atualizar arquivo no servidor
-
   useEffect(() => {
-    axios.get('http://localhost:4000/updateFile')
+console.log("=== old simulServer: "+simulServer)    
+setField1(simulServer)
+/*
+    axios.get('http://localhost:8080/value')
       .then(response => {
         setSimulServer(response.data);
+console.log("=== simulServer: "+simulServer)    
+        setField1(response.data)
       })
       .catch(error => {
         console.error("=== useEffect axios error: "+error);
       });
-
-
-/*    
-    console.log("=== Called useEffect: Ler dado do arquivo no servidor..."+simulServer)
-    setField1(simulServer)
-
-    const interval = setInterval(() => {
-      console.log("== Temporizou...");
-    }, 2000);
-*/
-    return //() => clearInterval(interval);
+*/      
   }, []);
 
+  const handle_Input1_Change = value => {setField1(value)}
+
+  //=== WORKING!!! DONT TOUCH!!!
+  const handle_button1_click = (e) => {
+            console.log('=== Clicked button_1: '+field1)
+
+            axios.post('http://localhost:8080/postvalue',field1)
+            .then(response => {
+              setSimulServer(response.data);
+              setField1(response.data)
+            })
+            .catch(error => {
+              console.error("=== button axios error: "+error);
+            });
+  }
 
   return (
     <div className='root'>
