@@ -12,6 +12,7 @@ function App() {
       .then(response => {
         setSimulServer(response.data);
         setField1(response.data)
+        console.log('=== Reloaded the page: '+response.data)
       })
       .catch(error => {
         console.error("=== useEffect axios error: "+error);

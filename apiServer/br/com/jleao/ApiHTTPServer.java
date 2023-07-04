@@ -1,6 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- */
 
 //Compile: javac -cp ./ br/com/jleao/ApiHTTPServer.java
 //Run:     java -cp ./ br.com.jleao.ApiHTTPServer
@@ -20,7 +17,7 @@ public class ApiHTTPServer {
 
     public static Semaphore mutex = new Semaphore(1,true);
     
-    public static String valueJSON = "{\"value\":60}";
+    public static String valueJSON = "{'value':60}";
     
     public static void main(String[] args) throws IOException {
 //====================================================================        
@@ -39,22 +36,7 @@ public class ApiHTTPServer {
                 }catch(Exception e){
                     e.printStackTrace();
                 }
-/*                
-            final String json = "{\"weight\":\"23400\"}";
-            final String origin = exchange.getRequestHeaders().getFirst("Origin");
-            if(origin != null){
-                System.out.println("=== origin: "+origin);
-                exchange.getResponseHeaders().add("Access-Control-Allow-Origin", origin);
-                exchange.getResponseHeaders().add("Access-Control-Allow-Headers","origin, content-type, accept, authorization");
-                exchange.getResponseHeaders().add("Access-Control-Allow-Credentials", "true");
-                exchange.getResponseHeaders().add("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD");
-                exchange.getResponseHeaders().set("contentType", "application/json; charset=UTF-8, text/plain, *//*");
-                exchange.sendResponseHeaders(200, json.getBytes().length);
-                OutputStream output = exchange.getResponseBody();
-                output.write(responseText.getBytes());
-                output.flush();
-            }
-*/            
+
                 exchange.getResponseHeaders().add("Access-Control-Allow-Origin", "http://localhost:5173");   // The server tells it allows localhost:3000 !!
                 exchange.getResponseHeaders().add("Access-Control-Allow-Credentials", "true");
                 exchange.getResponseHeaders().add("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
@@ -70,43 +52,6 @@ System.out.println("=== GET  responseText: "+responseText);
             }
             exchange.close();
         }));
-        //-------------------------------------------------------------------            
-        //  
-/*        
-            if ("POST".equals(exchange.getRequestMethod())) {
-                
-                InputStream input = exchange.getRequestBody();
-                byte[] inputBytes = new byte[200];
-                int n = input.read(inputBytes);
-                String localvalueJSON = (new String(inputBytes,StandardCharsets.UTF_8)).substring(0,n);
-                try{
-                    mutex.acquire();
-                    valueJSON = localvalueJSON;
-                    mutex.release();
-                }catch(Exception e){
-                    e.printStackTrace();
-                }
-                
-                String responseText = localvalueJSON;
-
-                exchange.getResponseHeaders().add("Access-Control-Allow-Origin", "http://localhost:5173");   // The server tells it allows localhost:3000 !!
-                exchange.getResponseHeaders().add("Access-Control-Allow-Headers","origin, content-type, accept, authorization");
-                exchange.getResponseHeaders().add("Access-Control-Allow-Credentials", "true");
-                exchange.getResponseHeaders().add("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD");
-                exchange.sendResponseHeaders(200, responseText.getBytes().length);
-
-                OutputStream output = exchange.getResponseBody();
-                output.write(responseText.getBytes());
-                output.flush();
-    
-            } else {
-                exchange.sendResponseHeaders(405, -1);// 405 Method Not Allowed
-            }
-            exchange.close();
-            
-        }));
-        //-------------------------------------------------------------------            
-*/
         
 //====================================================================
 
